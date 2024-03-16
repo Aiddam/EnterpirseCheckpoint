@@ -35,9 +35,9 @@ namespace EnterpriseCheckpoint.DataAccess
             return Task.FromResult((IRepository<T>)_repositories[type]);
         }
 
-        public async Task CommitAsync()
+        public Task CommitAsync()
         {
-            await _context.SaveChangesAsync();
+            return _context.SaveChangesAsync();
         }
     }
 }

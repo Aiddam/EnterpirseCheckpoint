@@ -17,19 +17,19 @@ namespace EnterpriseCheckpoint.DataAccess.Repositories
             _dbSet = _context.Set<T>();
         }
 
-        public async Task<T> CreateAsync(T entity, CancellationToken cancellationToken = default)
+        public virtual async Task<T> CreateAsync(T entity, CancellationToken cancellationToken = default)
         {
             var result = await _dbSet.AddAsync(entity, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
             return result.Entity;
         }
 
-        public async Task<T?> ReadEntityByIdAsync(int id, CancellationToken cancellationToken = default)
+        public virtual async Task<T?> ReadEntityByIdAsync(int id, CancellationToken cancellationToken = default)
         {
             return await _dbSet.FindAsync(new object[] { id }, cancellationToken);
         }
 
-        public async Task<IEnumerable<T>> ReadEntitiesByPredicate(Expression<Func<T, bool>> predicate, IEnumerable<KeyValuePair<Expression<Func<T, object>>, bool>> orderBy, CancellationToken cancellationToken = default)
+        public virtual async Task<IEnumerable<T>> ReadEntitiesByPredicate(Expression<Func<T, bool>> predicate, IEnumerable<KeyValuePair<Expression<Func<T, object>>, bool>> orderBy, CancellationToken cancellationToken = default)
         {
             var query = _dbSet.Where(predicate);
 
@@ -41,14 +41,14 @@ namespace EnterpriseCheckpoint.DataAccess.Repositories
             return await query.ToListAsync(cancellationToken);
         }
 
-        public async Task<T> UpdateAsync(T entity, CancellationToken cancellationToken = default)
+        public virtual async Task<T> UpdateAsync(T entity, CancellationToken cancellationToken = default)
         {
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync(cancellationToken);
             return entity;
         }
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
+        public virtual async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
         {
             var entity = await _dbSet.FindAsync(new object[] { id }, cancellationToken);
             if (entity == null)
