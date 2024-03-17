@@ -9,6 +9,7 @@
         Icon="/Assets/avalonia-logo.ico"
         d:DesignHeight="450"
         d:DesignWidth="800"
+        x:DataType="vm:MainWindowViewModel"
         mc:Ignorable="d">
-    <views:MainView />
+    <ContentControl Content="{Binding DefaultView}" />
 </Window>
