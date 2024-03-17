@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Autofac" Version="8.0.0" />
   </ItemGroup>
 
@@ -19,6 +15,10 @@
     <ProjectReference Include="..\Enterprise.Checkpoint.Interfaces\Enterprise.Checkpoint.Interfaces.csproj" />
     <ProjectReference Include="..\EnterpriseCheckpoint.DataAccess\EnterpriseCheckpoint.DataAccess.csproj" />
     <ProjectReference Include="..\EnterpriseCheckpoint.Models\EnterpriseCheckpoint.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
