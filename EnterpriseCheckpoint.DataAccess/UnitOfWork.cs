@@ -1,16 +1,16 @@
 ﻿using Enterprise.Checkpoint.Interfaces.DataAccessInterfaces;
+using EnterpriseCheckpoint.DataAccess.DbContexts;
 using EnterpriseCheckpoint.DataAccess.Repositories;
 using EnterpriseCheckpoint.Models.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace EnterpriseCheckpoint.DataAccess
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DbContext _context;
+        private readonly MainDbContext _context;
         private readonly Dictionary<Type, object> _repositories;
 
-        public UnitOfWork(DbContext context)
+        public UnitOfWork(MainDbContext context)
         {
             _context = context;
             _repositories = new Dictionary<Type, object>();
@@ -28,7 +28,7 @@ namespace EnterpriseCheckpoint.DataAccess
                     .FirstOrDefault()
                     ??
                     typeof(BaseRepository<T>);
-                var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(type), _context)
+                var repositoryInstance = Activator.CreateInstance(repositoryType, _context)
                     ?? throw new ArgumentException($"Unable to resolve repository with type {typeof(T).Name}");
                 _repositories[type] = repositoryInstance;
             }

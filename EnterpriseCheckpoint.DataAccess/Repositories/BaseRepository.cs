@@ -29,13 +29,16 @@ namespace EnterpriseCheckpoint.DataAccess.Repositories
             return await _dbSet.FindAsync(new object[] { id }, cancellationToken);
         }
 
-        public virtual async Task<IEnumerable<T>> ReadEntitiesByPredicate(Expression<Func<T, bool>> predicate, IEnumerable<KeyValuePair<Expression<Func<T, object>>, bool>> orderBy, CancellationToken cancellationToken = default)
+        public virtual async Task<IEnumerable<T>> ReadEntitiesByPredicate(Expression<Func<T, bool>> predicate, IEnumerable<KeyValuePair<Expression<Func<T, object>>, bool>>? orderBy = null, CancellationToken cancellationToken = default)
         {
             var query = _dbSet.Where(predicate);
-
-            foreach (var order in orderBy)
+            
+            if (orderBy is not null)
             {
-                query = order.Value ? query.OrderBy(order.Key) : query.OrderByDescending(order.Key);
+                foreach (var order in orderBy)
+                {
+                    query = order.Value ? query.OrderBy(order.Key) : query.OrderByDescending(order.Key);
+                }
             }
 
             return await query.ToListAsync(cancellationToken);

@@ -2,6 +2,8 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using EnterpirseCheckpoint.ViewLocators;
+using EnterpirseCheckpoint.ViewModels;
 using EnterpirseCheckpoint.Views;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,14 +22,29 @@ public partial class App : Application
     {
         var serviceContainer = GetServiceContainer();
 
+        var mainViewModel = serviceContainer.Resolve<MainViewModel>();
+        mainViewModel.ViewModel = serviceContainer.Resolve<LoginViewModel>();
+        var mainView = new MainView()
+        {
+            DataContext = mainViewModel
+        };
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = serviceContainer.Resolve<MainWindow>();
+            desktop.MainWindow = new MainWindow()
+            {
+                DataContext = new MainWindowViewModel()
+                {
+                    DefaultView = mainView
+                }
+            };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = serviceContainer.Resolve<MainView>();
+            singleViewPlatform.MainView = mainView;
         }
+
+        DataTemplates.Add(serviceContainer.Resolve<ViewLocator>());
 
         base.OnFrameworkInitializationCompleted();
     }
