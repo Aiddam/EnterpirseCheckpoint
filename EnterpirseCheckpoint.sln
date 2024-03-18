@@ -7,15 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpirseCheckpoint", "Ent
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpirseCheckpoint.Desktop", "EnterpirseCheckpoint.Desktop\EnterpirseCheckpoint.Desktop.csproj", "{DBD36FCB-55C2-4507-BB3D-75468E15FAE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterpriseCheckpoint.Services", "EnterpriseCheckpoint.Services\EnterpriseCheckpoint.Services.csproj", "{9675F7BF-EE9C-49F4-9973-D4687E043E78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseCheckpoint.Services", "EnterpriseCheckpoint.Services\EnterpriseCheckpoint.Services.csproj", "{9675F7BF-EE9C-49F4-9973-D4687E043E78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterpriseCheckpoint.Models", "EnterpriseCheckpoint.Models\EnterpriseCheckpoint.Models.csproj", "{698E6B3C-39D3-4FCE-A72A-D63676D64286}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseCheckpoint.Models", "EnterpriseCheckpoint.Models\EnterpriseCheckpoint.Models.csproj", "{698E6B3C-39D3-4FCE-A72A-D63676D64286}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterpriseCheckpoint.DataAccess", "EnterpriseCheckpoint.DataAccess\EnterpriseCheckpoint.DataAccess.csproj", "{CEAA7907-FF3D-419C-9090-5BC3BAC9EDE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpriseCheckpoint.DataAccess", "EnterpriseCheckpoint.DataAccess\EnterpriseCheckpoint.DataAccess.csproj", "{CEAA7907-FF3D-419C-9090-5BC3BAC9EDE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enterprise.Checkpoint.Interfaces", "Enterprise.Checkpoint.Interfaces\Enterprise.Checkpoint.Interfaces.csproj", "{D8C01216-6079-44E6-ACC0-335601D9EADE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enterprise.Checkpoint.Interfaces", "Enterprise.Checkpoint.Interfaces\Enterprise.Checkpoint.Interfaces.csproj", "{D8C01216-6079-44E6-ACC0-335601D9EADE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterpirseCheckpoint.Utilities", "EnterpirseCheckpoint.Utilities\EnterpirseCheckpoint.Utilities.csproj", "{F256C95D-CBF1-469D-A588-B19C6CEFA9B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnterpirseCheckpoint.Utilities", "EnterpirseCheckpoint.Utilities\EnterpirseCheckpoint.Utilities.csproj", "{F256C95D-CBF1-469D-A588-B19C6CEFA9B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SomeTests", "SomeTests\SomeTests.csproj", "{EF68CF0B-43F8-4AA7-AAA2-8469160B98C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{F256C95D-CBF1-469D-A588-B19C6CEFA9B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F256C95D-CBF1-469D-A588-B19C6CEFA9B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F256C95D-CBF1-469D-A588-B19C6CEFA9B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF68CF0B-43F8-4AA7-AAA2-8469160B98C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF68CF0B-43F8-4AA7-AAA2-8469160B98C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF68CF0B-43F8-4AA7-AAA2-8469160B98C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF68CF0B-43F8-4AA7-AAA2-8469160B98C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

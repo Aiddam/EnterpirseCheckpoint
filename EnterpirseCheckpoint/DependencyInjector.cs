@@ -9,8 +9,8 @@ namespace EnterpirseCheckpoint
             containerBuilder
                 .RegisterAssemblyTypes(typeof(DependencyInjector).Assembly)
                 .Where(t => 
-                    t.Name.Contains("View") ||
-                    t.Name.Contains("Window")
+                    t.Name.Contains("ViewModel") ||
+                    t.Name.Contains("ViewLocator")
                 )
                 .AsSelf()
                 .AsImplementedInterfaces();

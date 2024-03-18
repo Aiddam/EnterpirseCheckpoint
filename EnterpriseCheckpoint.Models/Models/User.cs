@@ -2,9 +2,10 @@
 {
     public class User : BaseEntity
     {
+        public string Login { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string Surname { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-        public string HashKey { get; set; } = string.Empty;
+        public string PasswordHash { get; set; } = string.Empty;
+        public string Salt { get; set; } = string.Empty;
     }
 }

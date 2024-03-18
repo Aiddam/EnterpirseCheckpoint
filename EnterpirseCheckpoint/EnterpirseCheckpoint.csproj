@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EnterpirseCheckpoint.Utilities\EnterpirseCheckpoint.Utilities.csproj" />
+    <ProjectReference Include="..\Enterprise.Checkpoint.Interfaces\Enterprise.Checkpoint.Interfaces.csproj" />
     <ProjectReference Include="..\EnterpriseCheckpoint.Models\EnterpriseCheckpoint.Models.csproj" />
     <ProjectReference Include="..\EnterpriseCheckpoint.Services\EnterpriseCheckpoint.Services.csproj" />
   </ItemGroup>
@@ -35,5 +36,9 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModelParameters\" />
   </ItemGroup>
 </Project>
