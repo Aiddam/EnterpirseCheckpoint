@@ -13,19 +13,13 @@ namespace EnterpriseCheckpoint.DataAccess.DbContexts
             _configuration = configuration;
         }
 
-        public MainDbContext()
-        {
-
-        }
-
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Employee> Employees { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer(_configuration.GetConnectionString("SQLProviderConnectionString"));
-            optionsBuilder.UseSqlServer("Server=ZHEKA;Database=TestDb;Trusted_Connection=True;Encrypt=False;");
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("SQLProviderConnectionString"));
         }
     }
 }
