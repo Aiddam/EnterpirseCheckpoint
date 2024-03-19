@@ -16,11 +16,9 @@ namespace EnterpirseCheckpoint.Utilities
             {
                 var context = c.Resolve<IComponentContext>();
 
-                // Створення конфігурації з використанням сканування асемблеї для знаходження профілів
                 var config = new MapperConfiguration(cfg =>
                 {
-                    // Сканування асемблеї для автоматичного виявлення профілів
-                    cfg.AddMaps(typeof(DependencyInjector).Assembly); // Змінено на AddMaps
+                    cfg.AddMaps(typeof(DependencyInjector).Assembly);
                 });
 
                 return config.CreateMapper();
