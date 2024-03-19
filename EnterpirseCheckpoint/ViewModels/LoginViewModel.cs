@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Enterprise.Checkpoint.Interfaces.Services;
+using EnterpriseCheckpoint.Models.Models;
 using ReactiveUI;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -47,9 +49,10 @@ namespace EnterpirseCheckpoint.ViewModels
 
             try
             {
-                await _userService.LoginAsync(Login, Password);
+                var user = await _userService.LoginAsync(Login, Password);
+                var homeViewModelFactory = _componentContext.Resolve<Func<User, HomeViewModel>>();
+                ChangeView(homeViewModelFactory(user));
 
-                ChangeView(_componentContext.Resolve<TestViewModel>());
             }
             catch
             {
