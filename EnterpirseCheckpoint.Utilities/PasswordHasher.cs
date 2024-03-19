@@ -28,8 +28,14 @@ namespace EnterpirseCheckpoint.Utilities
 
             var passwordSalt = hmac.Key;
             var passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+            var pass = Convert.ToBase64String(passwordHash);
 
             return Task.FromResult($"{Convert.ToBase64String(passwordHash)}{_passwordSaltSeparator}{Convert.ToBase64String(passwordSalt)}");
+        }
+
+        public string GetPasswordSaltSeperator()
+        {
+            return _passwordSaltSeparator;
         }
 
         public Task<bool> VerifyPasswordHashAsync(string password, string passwordHash, CancellationToken cancellationToken = default)

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using AutoMapper;
 
 namespace EnterpirseCheckpoint.Utilities
 {
@@ -10,6 +11,18 @@ namespace EnterpirseCheckpoint.Utilities
                 .RegisterAssemblyTypes(typeof(DependencyInjector).Assembly)
                 .AsSelf()
                 .AsImplementedInterfaces();
+
+            containerBuilder.Register(c =>
+            {
+                var context = c.Resolve<IComponentContext>();
+
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.AddMaps(typeof(DependencyInjector).Assembly);
+                });
+
+                return config.CreateMapper();
+            }).As<IMapper>().SingleInstance();
         }
     }
 }
