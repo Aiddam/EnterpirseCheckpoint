@@ -17,11 +17,6 @@ namespace EnterpirseCheckpoint.Utilities
             _passwordSaltSeparator = passwordHasherConfiguration.PasswordSaltSeparator;
         }
 
-        //public PasswordHasher(PasswordHasherConfiguration passwordHasherConfiguration)
-        //{
-        //    _passwordSaltSeparator = passwordHasherConfiguration.PasswordSaltSeparator;
-        //}
-
         public Task<string> CreatePasswordHashAsync(string password, CancellationToken cancellationToken = default)
         {
             using var hmac = new HMACSHA512();
