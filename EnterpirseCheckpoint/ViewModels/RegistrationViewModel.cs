@@ -1,24 +1,20 @@
-﻿using Autofac;
-using Avalonia.Controls;
-using Enterprise.Checkpoint.Interfaces.Services;
+﻿using Enterprise.Checkpoint.Interfaces.Services;
 using EnterpriseCheckpoint.Models.Enum;
 using EnterpriseCheckpoint.Models.Models;
-using EnterpriseCheckpoint.Services.Services;
 using ReactiveUI;
 using System;
-using System.Data;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace EnterpirseCheckpoint.ViewModels
 {
-    public class RegistrationViewModel : ViewModelBase
+    public class RegistrationViewModel : ViewModelBaseWithParameters<User>
     {
         private readonly IUserService _userService;
         private readonly IOrganizationService _organizationService;
         private readonly IEmployeeService _employeeService;
 
-        private readonly User _user;
+        private User _user = null!;
 
         private string _login = string.Empty;
         private string _password = string.Empty;
@@ -27,12 +23,11 @@ namespace EnterpirseCheckpoint.ViewModels
         private string _role = string.Empty;
         private string _message = string.Empty;
 
-        public RegistrationViewModel(IComponentContext context, User mainUser)
+        public RegistrationViewModel(IUserService userService, IOrganizationService organizationService, IEmployeeService employeeService)
         {
-            _user = mainUser;
-            _userService = context.Resolve<UserService>();
-            _organizationService = context.Resolve<OrganizationService>();
-            _employeeService = context.Resolve<EmployeeService>();
+            _userService = userService;
+            _organizationService = organizationService;
+            _employeeService = employeeService;
             RegistrationCommand = ReactiveCommand.CreateFromTask(RegistrationCommandHandler);
         }
         public string Message
@@ -95,11 +90,11 @@ namespace EnterpirseCheckpoint.ViewModels
             try
             {
                 UserDto userDto = new UserDto { Login = Login, Name = Name, Role = UserRole.Employee, Password = Password, Surname = Surname};
-                await _userService.RegistrationAsync(userDto);
+                var user = await _userService.RegistrationAsync(userDto);
 
                 var mainUserOrganization = await _organizationService.GetOrganizationByUserAsync(_user);
 
-                Employee employee = new Employee { OrganizationId = mainUserOrganization.Id, Role = Role};
+                Employee employee = new Employee { OrganizationId = mainUserOrganization.Id, Role = Role, UserId = user.Id };
                 await _employeeService.CreateAsync(employee);
             }
             catch (Exception ex)
@@ -109,6 +104,10 @@ namespace EnterpirseCheckpoint.ViewModels
             }
             Message = "Успішна реєстрація";
         }
-    }
 
+        public override void SetAdditionalParameter(User parameter)
+        {
+            _user = parameter;
+        }
+    }
 }

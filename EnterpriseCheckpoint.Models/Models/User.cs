@@ -10,5 +10,7 @@ namespace EnterpriseCheckpoint.Models.Models
         public string PasswordHash { get; set; } = string.Empty;
         public string Salt { get; set; } = string.Empty;
         public UserRole Role { get; set; }
+
+        public Employee Employee { get; set; } = null!; 
     }
 }

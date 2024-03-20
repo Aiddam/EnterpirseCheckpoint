@@ -1,0 +1,39 @@
+<UserControl x:Class="EnterpirseCheckpoint.Views.ChangeScheduleView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:EnterpirseCheckpoint.ViewModels"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             x:DataType="vm:ChangeScheduleViewModel"
+             mc:Ignorable="d"
+			 Loaded="UserControl_Loaded">
+    <StackPanel HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Spacing="50">
+        <StackPanel Height="20"
+                    Orientation="Horizontal"
+                    Spacing="10">
+            <TextBlock Text="Start:" />
+            <NumericUpDown Value="{Binding StartHour}"
+                           Width="120" />
+            <TextBlock Text=":" />
+            <NumericUpDown Value="{Binding StartMinute}"
+                           Width="120" />
+        </StackPanel>
+        <StackPanel Height="20"
+                    Orientation="Horizontal"
+                    Spacing="10">
+            <TextBlock Text="End:" />
+            <NumericUpDown Value="{Binding EndHour}"
+                           Width="120" />
+            <TextBlock Text=":" />
+            <NumericUpDown Value="{Binding EndMinute}"
+                           Width="120" />
+        </StackPanel>
+        <Button Content="Add schedule"
+                Command="{Binding AddScheduleCommand}"
+                HorizontalAlignment="Center" />
+    </StackPanel>
+</UserControl>
