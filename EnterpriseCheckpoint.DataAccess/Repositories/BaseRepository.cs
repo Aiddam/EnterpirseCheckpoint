@@ -8,8 +8,8 @@ namespace EnterpriseCheckpoint.DataAccess.Repositories
 {
     public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly DbContext _context;
-        private readonly DbSet<T> _dbSet;
+        protected readonly DbContext _context;
+        protected readonly DbSet<T> _dbSet;
 
         public BaseRepository(DbContext context)
         {
@@ -46,7 +46,12 @@ namespace EnterpriseCheckpoint.DataAccess.Repositories
 
         public virtual async Task<T> UpdateAsync(T entity, CancellationToken cancellationToken = default)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            var oldEntity = await ReadEntityByIdAsync(entity.Id, cancellationToken);
+
+            if (oldEntity is null) return entity;
+
+            var oldEntityEntry = _context.Entry(oldEntity)!;
+            oldEntityEntry.CurrentValues.SetValues(entity);
             await _context.SaveChangesAsync(cancellationToken);
             return entity;
         }

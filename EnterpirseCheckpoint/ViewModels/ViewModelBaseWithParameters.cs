@@ -1,13 +1,6 @@
-﻿using ReactiveUI;
+﻿namespace EnterpirseCheckpoint.ViewModels;
 
-namespace EnterpirseCheckpoint.ViewModels;
-
-public class ViewModelBaseWithParameters<T> : ViewModelBase
+public abstract class ViewModelBaseWithParameters<T> : ViewModelBase
 {
-    protected T? _parameter;
-
-    public void SetAdditionalParameter(T parameter)
-    {
-        _parameter = parameter;
-    }
+    public abstract void SetAdditionalParameter(T parameter);
 }

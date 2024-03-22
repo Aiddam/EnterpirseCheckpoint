@@ -21,5 +21,10 @@ namespace EnterpriseCheckpoint.DataAccess.DbContexts
         {
             optionsBuilder.UseSqlServer(_configuration.GetConnectionString("SQLProviderConnectionString"));
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(MainDbContext).Assembly);
+        }
     }
 }

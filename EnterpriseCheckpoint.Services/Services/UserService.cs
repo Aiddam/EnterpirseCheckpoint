@@ -43,7 +43,7 @@ namespace EnterpriseCheckpoint.Services.Services
             return foundUser;
         }
 
-        public async Task RegistrationAsync(UserDto userDto, CancellationToken cancellationToken = default)
+        public async Task<User> RegistrationAsync(UserDto userDto, CancellationToken cancellationToken = default)
         {
             var userRepository = await _unitOfWork.GetRepository<User>();
 
@@ -60,9 +60,11 @@ namespace EnterpriseCheckpoint.Services.Services
             user.PasswordHash = await _passwordHasher.CreatePasswordHashAsync(userDto.Password);
             user.Salt = _passwordHasher.GetPasswordSaltSeperator(); ;
 
-            await userRepository.CreateAsync(user);
+            var newUser = await userRepository.CreateAsync(user);
 
             await _unitOfWork.CommitAsync();
+
+            return newUser;
         }
     }
 }
