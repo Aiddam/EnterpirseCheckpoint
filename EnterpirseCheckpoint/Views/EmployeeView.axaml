@@ -1,0 +1,36 @@
+<UserControl x:Class="EnterpirseCheckpoint.Views.EmployeeView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:EnterpirseCheckpoint.ViewModels"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             x:DataType="vm:EmployeeViewModel"
+             mc:Ignorable="d">
+    <StackPanel HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+        <StackPanel IsVisible="{Binding IsLeave}">
+            <TextBlock Text="You are free for today, spend time with someone special for you!"
+                       TextAlignment="Center" />
+        </StackPanel>
+        <StackPanel IsVisible="{Binding IsEnter}">
+            <TextBlock Text="Are you done for today?"
+                       TextAlignment="Center" />
+            <Button Content="Yeah, definitely!"
+                    Command="{Binding ExitCommand}"
+                    HorizontalAlignment="Center" />
+        </StackPanel>
+        <StackPanel IsVisible="{Binding IsNone}">
+            <TextBlock Text="Hello hardworker! Are you ready to waste your priceless time?"
+                       TextAlignment="Center" />
+            <Button Content="Yeah, definitely!"
+                    Command="{Binding EnterCommand}"
+                    HorizontalAlignment="Center" />
+        </StackPanel>
+        <StackPanel IsVisible="{Binding IsNoWorkDay}">
+            <TextBlock Text="It's your weekend!"
+                       TextAlignment="Center" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

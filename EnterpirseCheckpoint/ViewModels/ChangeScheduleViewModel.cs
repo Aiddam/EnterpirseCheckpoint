@@ -24,12 +24,33 @@ namespace EnterpirseCheckpoint.ViewModels
         private int _startMinute;
         private int _endMinute;
 
+        private int? _startWeekDay;
+        private int? _endWeekDay;
+
         public ChangeScheduleViewModel(IComponentContext componentContext, IEmployeeService employeeService)
         {
             _componentContext = componentContext;
             _employeeService = employeeService;
 
             AddScheduleCommand = ReactiveCommand.Create(SetupScheduleAsync);
+        }
+
+        public int? StartWeekDay
+        {
+            get => _startWeekDay;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _startWeekDay, value);
+            }
+        }
+
+        public int? EndWeekDay
+        {
+            get => _endWeekDay;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _endWeekDay, value);
+            }
         }
 
         public int StartHour
@@ -120,7 +141,7 @@ namespace EnterpirseCheckpoint.ViewModels
 
             if (_employee is null)
             {
-                GoBack();
+                await GoBack();
                 return;
             }
 
@@ -128,30 +149,37 @@ namespace EnterpirseCheckpoint.ViewModels
             StartHour = _employee.Start?.Minute ?? 0;
             StartHour = _employee.End?.Hour ?? 0;
             StartHour = _employee.End?.Minute ?? 0;
+
+            StartWeekDay = _employee.DayOfWeekStart;
+            EndWeekDay = _employee.DayOfWeekEnd;
         }
 
         public async Task SetupScheduleAsync()
         {
             _employee!.Start = new DateTime(1, 1, 1, StartHour, StartMinute, 0, 0);
             _employee.End = new DateTime(1, 1, 1, EndHour, EndMinute, 0, 0);
+            _employee.DayOfWeekEnd = EndWeekDay;
+            _employee.DayOfWeekStart = StartWeekDay;
 
             await _employeeService.UpdateEmployeeAsync(_employee);
 
-            GoBack();
+            await GoBack();
         }
 
-        public void GoBack()
+        public async Task GoBack()
         {
             var homeViewModel = _componentContext.Resolve<HomeViewModel>();
-            homeViewModel.SetAdditionalParameter(_currentUser);
+            await homeViewModel.SetAdditionalParameter(_currentUser);
             ChangeView(homeViewModel);
-            homeViewModel.InitializeTabs();
+            await homeViewModel.InitializeTabs();
         }
 
-        public override void SetAdditionalParameter(ChangeScheduleParameter parameter)
+        public override Task SetAdditionalParameter(ChangeScheduleParameter parameter)
         {
             _employeeId = parameter.EmployeeId;
             _currentUser = parameter.CurrentUser;
+
+            return Task.CompletedTask;
         }
     }
 }

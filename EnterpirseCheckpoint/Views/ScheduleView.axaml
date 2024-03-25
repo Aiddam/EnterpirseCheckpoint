@@ -12,6 +12,7 @@
              mc:Ignorable="d">
     <UserControl.Resources>
         <converters:DateConverter x:Key="DateConverter" />
+        <converters:WeekDayConverter x:Key="WeekDayConverter" />
     </UserControl.Resources>
     <DataGrid ItemsSource="{Binding Employees}"
               Height="300"
@@ -23,10 +24,14 @@
                                 Binding="{Binding Surname}" />
             <DataGridTextColumn Header="Role"
                                 Binding="{Binding Role}" />
-            <DataGridTextColumn Header="Start"
+            <DataGridTextColumn Header="Start hour"
                                 Binding="{Binding Start, Converter={StaticResource DateConverter}}" />
-            <DataGridTextColumn Header="End"
+            <DataGridTextColumn Header="End hour"
                                 Binding="{Binding End, Converter={StaticResource DateConverter}}" />
+            <DataGridTextColumn Header="Start day"
+                                Binding="{Binding DayOfWeekStart, Converter={StaticResource WeekDayConverter}}" />
+            <DataGridTextColumn Header="End day"
+                                Binding="{Binding DayOfWeekEnd, Converter={StaticResource WeekDayConverter}}" />
         </DataGrid.Columns>
     </DataGrid>
 </UserControl>

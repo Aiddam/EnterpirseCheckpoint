@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
-using EnterpirseCheckpoint.Utilities;
-using EnterpirseCheckpoint.Utilities.Exceptions;
 using Enterprise.Checkpoint.Interfaces.DataAccessInterfaces;
 using Enterprise.Checkpoint.Interfaces.Services;
-using Enterprise.Checkpoint.Interfaces.Utilities;
 using EnterpriseCheckpoint.Models.DTOs;
 using EnterpriseCheckpoint.Models.Models;
 

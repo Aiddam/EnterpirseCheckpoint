@@ -51,7 +51,7 @@ namespace EnterpirseCheckpoint.ViewModels
             {
                 var user = await _userService.LoginAsync(Login, Password);
                 var homeViewModel = _componentContext.Resolve<HomeViewModel>();
-                homeViewModel.SetAdditionalParameter(user);
+                await homeViewModel.SetAdditionalParameter(user);
                 ChangeView(homeViewModel);
                 homeViewModel.InitializeTabs();
             }
