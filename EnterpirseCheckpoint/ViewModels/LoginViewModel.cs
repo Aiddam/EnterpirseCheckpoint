@@ -50,9 +50,10 @@ namespace EnterpirseCheckpoint.ViewModels
             try
             {
                 var user = await _userService.LoginAsync(Login, Password);
-                var homeViewModelFactory = _componentContext.Resolve<Func<User, HomeViewModel>>();
-                ChangeView(homeViewModelFactory(user));
-
+                var homeViewModel = _componentContext.Resolve<HomeViewModel>();
+                homeViewModel.SetAdditionalParameter(user);
+                ChangeView(homeViewModel);
+                homeViewModel.InitializeTabs();
             }
             catch
             {

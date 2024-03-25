@@ -18,7 +18,9 @@
 
             <TabControl>
 
-                <TabItem Header="Графік роботи" />
+                <TabItem Header="Графік роботи">
+                    <views:ScheduleView DataContext="{Binding ScheduleViewModel}" />
+                </TabItem>
 
                 <TabItem Header="Аналітика" />
 

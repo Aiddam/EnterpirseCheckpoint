@@ -15,8 +15,7 @@ namespace EnterpirseCheckpoint.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref _viewModel, value);
-                _viewModel.OnChangeViewModel -= InternalChangeView;
-                _viewModel.OnChangeViewModel += InternalChangeView;
+                ViewModel.OnChangeViewModel += InternalChangeView;
             }
         }
 
@@ -30,10 +29,6 @@ namespace EnterpirseCheckpoint.ViewModels
             this.RaisePropertyChanging(nameof(ViewModel));
 
             ViewModel = viewModel;
-
-            ViewModel.OnChangeViewModel += InternalChangeView;
-
-            this.RaisePropertyChanged(nameof(ViewModel));
         }
     }
 }
