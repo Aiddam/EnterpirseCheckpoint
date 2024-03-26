@@ -1,6 +1,8 @@
-﻿namespace EnterpirseCheckpoint.ViewModels;
+﻿using System.Threading.Tasks;
+
+namespace EnterpirseCheckpoint.ViewModels;
 
 public abstract class ViewModelBaseWithParameters<T> : ViewModelBase
 {
-    public abstract void SetAdditionalParameter(T parameter);
+    public abstract Task SetAdditionalParameter(T parameter);
 }

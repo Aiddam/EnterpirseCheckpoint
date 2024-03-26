@@ -16,6 +16,7 @@ namespace EnterpriseCheckpoint.DataAccess.DbContexts
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<EmployeeDayAssignment> EmployeeDayAssignments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

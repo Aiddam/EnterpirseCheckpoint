@@ -1,14 +1,9 @@
 ﻿using Autofac;
-using DynamicData.Binding;
 using EnterpirseCheckpoint.ViewModelParameters;
 using Enterprise.Checkpoint.Interfaces.Services;
 using EnterpriseCheckpoint.Models.DTOs;
 using EnterpriseCheckpoint.Models.Models;
-using ReactiveUI;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace EnterpirseCheckpoint.ViewModels
@@ -29,9 +24,10 @@ namespace EnterpirseCheckpoint.ViewModels
 
         public ObservableCollection<EmployeeDto> Employees { get; set; } = new ObservableCollection<EmployeeDto>();
 
-        public override void SetAdditionalParameter(User parameter)
+        public override Task SetAdditionalParameter(User parameter)
         {
             _user = parameter;
+            return Task.CompletedTask;
         }
 
         public async Task LoadEmployeesAsync()

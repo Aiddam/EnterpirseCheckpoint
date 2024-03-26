@@ -105,9 +105,10 @@ namespace EnterpirseCheckpoint.ViewModels
             Message = "Успішна реєстрація";
         }
 
-        public override void SetAdditionalParameter(User parameter)
+        public override Task SetAdditionalParameter(User parameter)
         {
             _user = parameter;
+            return Task.CompletedTask;
         }
     }
 }
