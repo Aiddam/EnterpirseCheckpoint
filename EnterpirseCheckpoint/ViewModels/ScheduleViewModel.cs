@@ -10,7 +10,7 @@ namespace EnterpirseCheckpoint.ViewModels
 {
     public class ScheduleViewModel : ViewModelBaseWithParameters<User>
     {
-        private User _user = null!;
+        private User? _user = null;
         private readonly IEmployeeService _employeeService;
         private readonly IOrganizationService _organizationService;
         private readonly IComponentContext _componentContext;
@@ -23,6 +23,12 @@ namespace EnterpirseCheckpoint.ViewModels
         }
 
         public ObservableCollection<EmployeeDto> Employees { get; set; } = new ObservableCollection<EmployeeDto>();
+        
+        public override User? CurrentUser 
+        { 
+            get => _user; 
+            set => _user = value; 
+        }
 
         public override Task SetAdditionalParameter(User parameter)
         {
@@ -32,15 +38,11 @@ namespace EnterpirseCheckpoint.ViewModels
 
         public async Task LoadEmployeesAsync()
         {
-            while (true)
+            var organization = await _organizationService.GetOrganizationByUserAsync(_user!);
+            Employees.Clear();
+            foreach (var employee in await _employeeService.GetOrganizationEmployeesAsync(organization.Id))
             {
-                var organization = await _organizationService.GetOrganizationByUserAsync(_user);
-                Employees.Clear();
-                foreach (var employee in await _employeeService.GetOrganizationEmployeesAsync(organization.Id))
-                {
-                    Employees.Add(employee);
-                }
-                await Task.Delay(2000);
+                Employees.Add(employee);
             }
         }
 
@@ -49,7 +51,7 @@ namespace EnterpirseCheckpoint.ViewModels
             var changeScheduleViewModel = _componentContext.Resolve<ChangeScheduleViewModel>();
             changeScheduleViewModel.SetAdditionalParameter(new ChangeScheduleParameter
             {
-                CurrentUser = _user,
+                CurrentUser = _user!,
                 EmployeeId = employeeId
             });
             ChangeView(changeScheduleViewModel);

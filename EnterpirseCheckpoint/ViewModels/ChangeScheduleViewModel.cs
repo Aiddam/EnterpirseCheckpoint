@@ -16,7 +16,7 @@ namespace EnterpirseCheckpoint.ViewModels
         private readonly IEmployeeService _employeeService;
         private int _employeeId;
 
-        private User _currentUser = null!;
+        private User? _currentUser = null;
         private Employee? _employee = null!;
 
         private int _startHour;
@@ -33,6 +33,7 @@ namespace EnterpirseCheckpoint.ViewModels
             _employeeService = employeeService;
 
             AddScheduleCommand = ReactiveCommand.Create(SetupScheduleAsync);
+            GoBackCommand = ReactiveCommand.Create(GoBack);
         }
 
         public int? StartWeekDay
@@ -134,6 +135,13 @@ namespace EnterpirseCheckpoint.ViewModels
         }
 
         public ICommand AddScheduleCommand { get; set; }
+        public ICommand GoBackCommand { get; set; }
+
+        public override User? CurrentUser 
+        { 
+            get => _currentUser;
+            set => _currentUser = value;
+        }
 
         public async Task LoadEmployeeAsync()
         {
@@ -169,7 +177,7 @@ namespace EnterpirseCheckpoint.ViewModels
         public async Task GoBack()
         {
             var homeViewModel = _componentContext.Resolve<HomeViewModel>();
-            await homeViewModel.SetAdditionalParameter(_currentUser);
+            await homeViewModel.SetAdditionalParameter(_currentUser!);
             ChangeView(homeViewModel);
             await homeViewModel.InitializeTabs();
         }

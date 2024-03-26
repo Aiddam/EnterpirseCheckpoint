@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace EnterpirseCheckpoint.ViewModels
 {
-    public class EmployeeViewModel : ViewModelBaseWithParameters<Employee>
+    public class EmployeeViewModel : ViewModelBaseWithParameters<User>
     {
         private Employee _currentEmployee = null!;
         private readonly IEmployeeAssignmentService _employeeAssignmentService;
@@ -51,6 +51,13 @@ namespace EnterpirseCheckpoint.ViewModels
         public ICommand EnterCommand { get; set; }
         public ICommand ExitCommand { get; set; }
 
+        private User? _currentUser = null;
+        public override User? CurrentUser
+        { 
+            get => _currentUser;
+            set => _currentUser = value;
+        }
+
         public EmployeeViewModel(IEmployeeAssignmentService employeeAssignmentService)
         {
             _employeeAssignmentService = employeeAssignmentService;
@@ -59,9 +66,10 @@ namespace EnterpirseCheckpoint.ViewModels
             ExitCommand = ReactiveCommand.Create(ExitAsync);
         }
 
-        public override async Task SetAdditionalParameter(Employee parameter)
+        public override async Task SetAdditionalParameter(User parameter)
         {
-            _currentEmployee = parameter;
+            _currentUser = parameter;
+            _currentEmployee = parameter.Employee;
 
             var isWorkDay = await _employeeAssignmentService.IsWorkDayAsync(_currentEmployee.Id);
             if (!isWorkDay)

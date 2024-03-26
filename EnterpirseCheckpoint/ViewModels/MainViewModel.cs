@@ -1,6 +1,8 @@
 ﻿using Autofac;
+using EnterpriseCheckpoint.Models.Models;
 using ReactiveUI;
 using System;
+using System.Windows.Input;
 
 namespace EnterpirseCheckpoint.ViewModels
 {
@@ -8,7 +10,7 @@ namespace EnterpirseCheckpoint.ViewModels
     {
         private readonly IComponentContext _componentContext;
 
-        private ViewModelBase _viewModel = new ViewModelBase();
+        private ViewModelBase _viewModel = null!;
         public ViewModelBase ViewModel
         {
             get => _viewModel;
@@ -19,16 +21,27 @@ namespace EnterpirseCheckpoint.ViewModels
             }
         }
 
+        public override User? CurrentUser 
+        {
+            get => ViewModel.CurrentUser; 
+            set => ViewModel.CurrentUser = value;
+        }
+
+        public ICommand LogoutButton { get; set; }
+
         public MainViewModel(IComponentContext componentContext)
         {
             _componentContext = componentContext;
+
+            LogoutButton = ReactiveCommand.Create(() => InternalChangeView(_componentContext.Resolve<LoginViewModel>()));
         }
 
         private void InternalChangeView(ViewModelBase viewModel)
         {
-            this.RaisePropertyChanging(nameof(ViewModel));
-
             ViewModel = viewModel;
+
+            this.RaisePropertyChanging(nameof(ViewModel));
+            this.RaisePropertyChanged(nameof(CurrentUser));
         }
     }
 }

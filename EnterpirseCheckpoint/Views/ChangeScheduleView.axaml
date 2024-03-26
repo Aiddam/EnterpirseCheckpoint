@@ -69,5 +69,8 @@
         <Button Content="Add schedule"
                 Command="{Binding AddScheduleCommand}"
                 HorizontalAlignment="Center" />
+        <Button Content="Go Back"
+                Command="{Binding GoBackCommand}"
+                HorizontalAlignment="Center" />
     </StackPanel>
 </UserControl>
