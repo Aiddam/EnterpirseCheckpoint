@@ -14,7 +14,7 @@ namespace EnterpirseCheckpoint.ViewModels
         private readonly IOrganizationService _organizationService;
         private readonly IEmployeeService _employeeService;
 
-        private User _user = null!;
+        private User? _user = null;
 
         private string _login = string.Empty;
         private string _password = string.Empty;
@@ -78,6 +78,12 @@ namespace EnterpirseCheckpoint.ViewModels
             }
         }
         public ICommand RegistrationCommand { get; }
+        public override User? CurrentUser
+        { 
+            get => _user;
+            set => _user = value;
+        }
+
         public async Task RegistrationCommandHandler()
         {
             Message = string.Empty;
@@ -92,7 +98,7 @@ namespace EnterpirseCheckpoint.ViewModels
                 UserDto userDto = new UserDto { Login = Login, Name = Name, Role = UserRole.Employee, Password = Password, Surname = Surname};
                 var user = await _userService.RegistrationAsync(userDto);
 
-                var mainUserOrganization = await _organizationService.GetOrganizationByUserAsync(_user);
+                var mainUserOrganization = await _organizationService.GetOrganizationByUserAsync(_user!);
 
                 Employee employee = new Employee { OrganizationId = mainUserOrganization.Id, Role = Role, UserId = user.Id };
                 await _employeeService.CreateAsync(employee);

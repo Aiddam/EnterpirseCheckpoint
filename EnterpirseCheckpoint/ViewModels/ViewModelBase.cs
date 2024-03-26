@@ -1,11 +1,14 @@
-﻿using ReactiveUI;
+﻿using EnterpriseCheckpoint.Models.Models;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 
 namespace EnterpirseCheckpoint.ViewModels;
 
-public class ViewModelBase : ReactiveObject
+public abstract class ViewModelBase : ReactiveObject
 {
+    public abstract User? CurrentUser { get; set; }
+
     public event Action<ViewModelBase>? OnChangeViewModel;
 
     protected void ChangeView(ViewModelBase nextView)

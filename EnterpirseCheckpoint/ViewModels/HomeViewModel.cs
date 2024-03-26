@@ -13,12 +13,18 @@ public class HomeViewModel : ViewModelBaseWithParameters<User>
     public ViewModelBaseWithParameters<User>? AnalyticsViewModel { get; set; }
     public ViewModelBaseWithParameters<User>? RegistrationViewModel { get; set; }
 
-    private User _user = null!;
+    private User? _user = null!;
     private readonly IComponentContext _context;
 
     public bool IsRegistrtionShow
     {
-        get => _user.Role == UserRole.Owner;
+        get => _user!.Role == UserRole.Owner;
+    }
+
+    public override User? CurrentUser 
+    {
+        get => _user; 
+        set => _user = value; 
     }
 
     public HomeViewModel(IComponentContext context)
@@ -28,7 +34,7 @@ public class HomeViewModel : ViewModelBaseWithParameters<User>
 
     public async Task InitializeTabs()
     {
-        if (Enum.Equals(_user.Role, UserRole.Owner))
+        if (Enum.Equals(_user!.Role, UserRole.Owner))
         {
             RegistrationViewModel = _context.Resolve<RegistrationViewModel>();
             await RegistrationViewModel.SetAdditionalParameter(_user);
@@ -47,7 +53,7 @@ public class HomeViewModel : ViewModelBaseWithParameters<User>
         else
         {
             var employeeViewModel = _context.Resolve<EmployeeViewModel>();
-            await employeeViewModel.SetAdditionalParameter(_user.Employee);
+            await employeeViewModel.SetAdditionalParameter(_user);
             ChangeView(employeeViewModel);
         }
     }

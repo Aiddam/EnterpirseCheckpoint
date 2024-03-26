@@ -15,6 +15,8 @@ namespace EnterpirseCheckpoint.ViewModels
         private string _login = string.Empty;
         private string _password = string.Empty;
 
+        private User? _currentUser = null;
+
         public LoginViewModel(IUserService userService, IComponentContext componentContext)
         {
             _userService = userService;
@@ -42,6 +44,12 @@ namespace EnterpirseCheckpoint.ViewModels
 
         public ICommand LoginCommand { get; }
 
+        public override User? CurrentUser 
+        {
+            get => _currentUser;
+            set => _currentUser = value;
+        }
+
         public async Task LoginCommandHandler()
         {
             if (string.IsNullOrEmpty(Login)) return;
@@ -53,7 +61,7 @@ namespace EnterpirseCheckpoint.ViewModels
                 var homeViewModel = _componentContext.Resolve<HomeViewModel>();
                 await homeViewModel.SetAdditionalParameter(user);
                 ChangeView(homeViewModel);
-                homeViewModel.InitializeTabs();
+                await homeViewModel.InitializeTabs();
             }
             catch
             {
