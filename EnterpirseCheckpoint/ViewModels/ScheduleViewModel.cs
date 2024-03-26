@@ -38,15 +38,11 @@ namespace EnterpirseCheckpoint.ViewModels
 
         public async Task LoadEmployeesAsync()
         {
-            while (true)
+            var organization = await _organizationService.GetOrganizationByUserAsync(_user!);
+            Employees.Clear();
+            foreach (var employee in await _employeeService.GetOrganizationEmployeesAsync(organization.Id))
             {
-                var organization = await _organizationService.GetOrganizationByUserAsync(_user!);
-                Employees.Clear();
-                foreach (var employee in await _employeeService.GetOrganizationEmployeesAsync(organization.Id))
-                {
-                    Employees.Add(employee);
-                }
-                await Task.Delay(2000);
+                Employees.Add(employee);
             }
         }
 

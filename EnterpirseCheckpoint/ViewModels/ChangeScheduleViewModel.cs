@@ -33,6 +33,7 @@ namespace EnterpirseCheckpoint.ViewModels
             _employeeService = employeeService;
 
             AddScheduleCommand = ReactiveCommand.Create(SetupScheduleAsync);
+            GoBackCommand = ReactiveCommand.Create(GoBack);
         }
 
         public int? StartWeekDay
@@ -134,6 +135,7 @@ namespace EnterpirseCheckpoint.ViewModels
         }
 
         public ICommand AddScheduleCommand { get; set; }
+        public ICommand GoBackCommand { get; set; }
 
         public override User? CurrentUser 
         { 

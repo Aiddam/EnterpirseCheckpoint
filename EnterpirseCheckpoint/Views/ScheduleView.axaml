@@ -16,7 +16,8 @@
     </UserControl.Resources>
     <DataGrid ItemsSource="{Binding Employees}"
               Height="300"
-              DoubleTapped="DataGrid_DoubleTapped">
+              DoubleTapped="DataGrid_DoubleTapped"
+              IsReadOnly="True">
         <DataGrid.Columns>
             <DataGridTextColumn Header="First name"
                                 Binding="{Binding Name}" />

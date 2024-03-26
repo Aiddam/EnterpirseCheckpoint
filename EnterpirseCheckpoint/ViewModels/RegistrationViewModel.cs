@@ -30,6 +30,9 @@ namespace EnterpirseCheckpoint.ViewModels
             _employeeService = employeeService;
             RegistrationCommand = ReactiveCommand.CreateFromTask(RegistrationCommandHandler);
         }
+
+        public event Func<Task>? UserCreated;
+
         public string Message
         {
             get => _message;
@@ -109,6 +112,9 @@ namespace EnterpirseCheckpoint.ViewModels
                 return;
             }
             Message = "Успішна реєстрація";
+
+            var task = UserCreated?.Invoke();
+            if (task is not null) await task;
         }
 
         public override Task SetAdditionalParameter(User parameter)

@@ -36,19 +36,23 @@ public class HomeViewModel : ViewModelBaseWithParameters<User>
     {
         if (Enum.Equals(_user!.Role, UserRole.Owner))
         {
-            RegistrationViewModel = _context.Resolve<RegistrationViewModel>();
+            var registrationViewModel = _context.Resolve<RegistrationViewModel>();
+            RegistrationViewModel = registrationViewModel;
             await RegistrationViewModel.SetAdditionalParameter(_user);
             foreach (var dlgt in GetDelegate())
             {
                 RegistrationViewModel.OnChangeViewModel += (Action<ViewModelBase>)dlgt;
             }
 
-            ScheduleViewModel = _context.Resolve<ScheduleViewModel>();
+            var scheduleViewModel = _context.Resolve<ScheduleViewModel>();
+            ScheduleViewModel = scheduleViewModel;
             await ScheduleViewModel.SetAdditionalParameter(_user);
             foreach (var dlgt in GetDelegate())
             {
                 ScheduleViewModel.OnChangeViewModel += (Action<ViewModelBase>)dlgt;
             }
+
+            registrationViewModel.UserCreated += scheduleViewModel.LoadEmployeesAsync;
         }
         else
         {
